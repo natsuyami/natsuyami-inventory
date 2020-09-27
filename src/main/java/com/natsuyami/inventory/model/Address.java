@@ -11,7 +11,7 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 4138714355455192166L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id", unique = true, nullable = false)
     private long id;
 
@@ -23,6 +23,9 @@ public class Address implements Serializable {
 
     @Column(name = "city", nullable = false)
     private String city;
+
+    @Column(name = "province", nullable = false)
+    private String province;
 
     @Column(name = "region", nullable = false)
     private String region;
@@ -60,6 +63,14 @@ public class Address implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getRegion() {

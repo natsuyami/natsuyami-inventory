@@ -1,9 +1,6 @@
 package com.natsuyami.inventory.dto;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class ProductDto implements Serializable {
@@ -14,7 +11,13 @@ public class ProductDto implements Serializable {
 
     private String productName;
 
+    private String brandName;
+
     private String productDescription;
+
+    private long categoryId;
+
+    private String createdBy;
 
     private Date updated;
 
@@ -32,6 +35,14 @@ public class ProductDto implements Serializable {
         return productName;
     }
 
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -44,11 +55,27 @@ public class ProductDto implements Serializable {
         this.productDescription = productDescription;
     }
 
-    public void setUpdated(Timestamp updated) {
+    public long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
@@ -67,9 +94,15 @@ public class ProductDto implements Serializable {
         builder.append("\"" + id + "\", ");
         builder.append("\"productName\" : ");
         builder.append("\"" + productName + "\", ");
+        builder.append("\"brandName\" : ");
+        builder.append("\"" + brandName + "\", ");
         builder.append("\"productDescription\" : ");
         builder.append("\"" + productDescription + "\", ");
-        builder.append("\"Timestamp\" : ");
+        builder.append("\"categoryId\" : ");
+        builder.append("\"" + categoryId + "\", ");
+        builder.append("\"createdBy\" : ");
+        builder.append("\"" + createdBy + "\", ");
+        builder.append("\"updated\" : ");
         builder.append("\"" + updated + "\", ");
         builder.append("\"created\" : ");
         builder.append("\"" + created + "\"");

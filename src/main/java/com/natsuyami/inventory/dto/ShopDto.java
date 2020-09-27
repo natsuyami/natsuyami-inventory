@@ -1,15 +1,11 @@
 package com.natsuyami.inventory.dto;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.Serializable;
-import java.sql.Time;
 
 public class ShopDto implements Serializable {
 
     private static final long serialVersionUID = -5288252174501458083L;
 
-    @JsonProperty("shop_id")
     private long id;
 
     private String shopName;
@@ -18,11 +14,13 @@ public class ShopDto implements Serializable {
 
     private String daysOfOperation;
 
-    private Time openHour;
+    private String hourOpening;
 
-    private Time closingHour;
+    private String hourClosing;
 
     public long addressId;
+
+    private String createdBy;
 
     public long getId() {
         return id;
@@ -56,20 +54,20 @@ public class ShopDto implements Serializable {
         this.daysOfOperation = daysOfOperation;
     }
 
-    public Time getOpenHour() {
-        return openHour;
+    public String getHourOpening() {
+        return hourOpening;
     }
 
-    public void setOpenHour(Time openHour) {
-        this.openHour = openHour;
+    public void setHourOpening(String openHour) {
+        this.hourOpening = openHour;
     }
 
-    public Time getClosingHour() {
-        return closingHour;
+    public String getHourClosing() {
+        return hourClosing;
     }
 
-    public void setClosingHour(Time closingHour) {
-        this.closingHour = closingHour;
+    public void setHourClosing(String hourClosing) {
+        this.hourClosing = hourClosing;
     }
 
     public long getAddressId() {
@@ -78,6 +76,14 @@ public class ShopDto implements Serializable {
 
     public void setAddressId(long addressId) {
         this.addressId = addressId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override
@@ -92,9 +98,11 @@ public class ShopDto implements Serializable {
         builder.append("\"daysOfOperation\" : ");
         builder.append("\"" + daysOfOperation + "\", ");
         builder.append("\"openHour\" : ");
-        builder.append("\"" + openHour + "\", ");
+        builder.append("\"" + hourOpening + "\", ");
         builder.append("\"closingHour\" : ");
-        builder.append("\"" + closingHour + "\", ");
+        builder.append("\"" + hourClosing + "\", ");
+        builder.append("\"createdBy\" : ");
+        builder.append("\"" + createdBy + "\", ");
         builder.append("\"addressId\" : ");
         builder.append("\"" + addressId + "\"");
         builder.append("}");

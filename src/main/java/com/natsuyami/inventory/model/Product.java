@@ -15,15 +15,25 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 6032531647133471571L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", unique = true, nullable = false)
     private long id;
 
-    @Column(name = "product_name", unique = true, nullable = false)
+    @Column(name = "product_name", nullable = false)
     private String productName;
+
+    @Column(name = "brand_name", nullable = false)
+    private String brandName;
 
     @Column(name = "product_description")
     private String productDescription;
+
+    @Column(name = "createdBy")
+    private String createdBy;
+
+    @ManyToOne
+    @JoinColumn(name = "product_category_id", nullable = false)
+    private ProductCategory productCategory;
 
     @OneToMany(mappedBy = "product")
     private Set<ShopProduct> shopProducts;
@@ -54,6 +64,14 @@ public class Product implements Serializable {
         this.productName = productName;
     }
 
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     public String getProductDescription() {
         return productDescription;
     }
@@ -62,12 +80,28 @@ public class Product implements Serializable {
         this.productDescription = productDescription;
     }
 
-    public Set<ShopProduct> getShopProduct() {
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Set<ShopProduct> getShopProducts() {
         return shopProducts;
     }
 
-    public void setShopProduct(Set<ShopProduct> shopProduct) {
-        this.shopProducts = shopProduct;
+    public void setShopProducts(Set<ShopProduct> shopProducts) {
+        this.shopProducts = shopProducts;
+    }
+
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
     }
 
     public Date getUpdated() {

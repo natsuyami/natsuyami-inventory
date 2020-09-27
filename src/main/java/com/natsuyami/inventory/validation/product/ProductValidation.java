@@ -2,8 +2,13 @@ package com.natsuyami.inventory.validation.product;
 
 import com.natsuyami.inventory.dto.ProductDto;
 import io.micrometer.core.instrument.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ProductValidation {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductValidation.class);
+
     protected static ProductValidation instance;
 
     protected ProductValidation() {}
@@ -17,6 +22,7 @@ public class ProductValidation {
     }
 
     public void validate(ProductDto productDto) {
+        LOGGER.info("Validating productDto using ProductValidation instance");
         try {
             validateProductName(productDto.getProductName());
         } catch (Exception e) {
@@ -25,6 +31,7 @@ public class ProductValidation {
     }
 
     public void validateProductName(String name) throws Exception {
+        LOGGER.info("Validating name={{}} using validateProductName", name);
         if (StringUtils.isBlank(name)) {
             throw new Exception("Product Name is blank");
         }

@@ -1,14 +1,11 @@
 package com.natsuyami.inventory.dto;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.Serializable;
 
 public class AddressDto implements Serializable {
 
     private static final long serialVersionUID = 4628122430762737878L;
 
-    @JsonProperty("address_id")
     private long id;
 
     private String addressBlock;
@@ -16,6 +13,8 @@ public class AddressDto implements Serializable {
     private String baranggay;
 
     private String city;
+
+    private String province;
 
     private String region;
 
@@ -51,6 +50,14 @@ public class AddressDto implements Serializable {
         this.city = city;
     }
 
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
     public String getRegion() {
         return region;
     }
@@ -70,6 +77,8 @@ public class AddressDto implements Serializable {
         builder.append("\"" + baranggay + "\", ");
         builder.append("\"city\" : ");
         builder.append("\"" + city + "\", ");
+        builder.append("\"province\" : ");
+        builder.append("\"" + province + "\", ");
         builder.append("\"region\" : ");
         builder.append("\"" + region + "\"");
         builder.append("}");

@@ -19,9 +19,12 @@ public class ShopDtoBuilder {
         return instance;
     }
 
-    public ShopDto build(Shop shop) {
+    public ShopDto build(Shop shop, long addressId) {
         ShopDto shopDto = new ShopDto();
         BeanUtils.copyProperties(shop, shopDto);
+        shopDto.setHourClosing(String.valueOf(shop.getClosingHour()));
+        shopDto.setHourOpening(String.valueOf(shop.getOpenHour().toString()));
+        shopDto.setAddressId(addressId);
 
         return shopDto;
     }

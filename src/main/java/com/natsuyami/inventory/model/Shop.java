@@ -15,11 +15,11 @@ public class Shop implements Serializable {
     private static final long serialVersionUID = 629430758404133415L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_id", unique = true, nullable = false)
     private long id;
 
-    @Column(name = "shop_name", unique = true, nullable = false)
+    @Column(name = "shop_name", nullable = false)
     private String shopName;
 
     @Column(name = "shop_description")
@@ -35,6 +35,9 @@ public class Shop implements Serializable {
     @Column(name = "closing_hour")
     @Temporal(TemporalType.TIME)
     private Date closingHour;
+
+    @Column(name = "createdBy")
+    private String createdBy;
 
     @OneToMany(mappedBy = "shop")
     private Set<ShopProduct> shopProducts;
@@ -99,6 +102,14 @@ public class Shop implements Serializable {
 
     public void setClosingHour(Date closingHour) {
         this.closingHour = closingHour;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Set<ShopProduct> getShopProducts() {

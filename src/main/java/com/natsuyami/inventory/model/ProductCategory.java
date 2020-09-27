@@ -5,13 +5,13 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "ni_product_category")
-public class Category implements Serializable {
+public class ProductCategory implements Serializable {
 
     private static final long serialVersionUID = 8418845809541519543L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "category_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_category_id", unique = true, nullable = false)
     private long id;
 
     @Column(name = "category", unique = true, nullable = false)

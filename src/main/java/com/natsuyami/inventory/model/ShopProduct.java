@@ -11,7 +11,7 @@ public class ShopProduct implements Serializable {
     private static final long serialVersionUID = 3479323698682585390L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_products_id", unique = true, nullable = false)
     private long id;
 

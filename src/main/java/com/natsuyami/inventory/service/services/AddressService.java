@@ -1,15 +1,11 @@
-package com.natsuyami.inventory.service.management;
+package com.natsuyami.inventory.service.services;
 
 import com.natsuyami.inventory.dto.AddressDto;
-import com.natsuyami.inventory.dto.builder.AddressDtoBuilder;
 import com.natsuyami.inventory.model.Address;
 import com.natsuyami.inventory.repository.AddressRepository;
-import com.natsuyami.inventory.service.impl.ManagementImpl;
-import com.natsuyami.inventory.service.impl.OpenImpl;
-import com.natsuyami.inventory.validation.product.AddressValidation;
+import com.natsuyami.inventory.service.impl.DefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,33 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AddressService implements ManagementImpl<AddressDto>, OpenImpl<AddressDto> {
+public class AddressService implements DefaultImpl<AddressDto> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AddressService.class);
 
     @Autowired
     private AddressRepository addressRepository;
-
-    @Override
-    public AddressDto create(AddressDto addressDto) {
-        AddressValidation.getInstance().validate(addressDto);
-        Address address = new Address();
-        BeanUtils.copyProperties(addressDto, address);
-
-        address = addressRepository.save(address);
-
-        return AddressDtoBuilder.getInstance().build(address);
-    }
-
-    @Override
-    public AddressDto update(AddressDto obj) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(long id) {
-        return false;
-    }
 
     @Override
     public List<AddressDto> getAll() {
@@ -60,10 +35,17 @@ public class AddressService implements ManagementImpl<AddressDto>, OpenImpl<Addr
         return null;
     }
 
+    /**
+     * find address by its id, otherwise null if id not exist
+     * @param id - address id, type long
+     * @return Address - address data
+     */
     public Address findById (long id) {
+        LOGGER.info("Initialized AddressService findById() method with id={{}}", id);
         Optional<Address> address = addressRepository.findById(id);
 
         if (address.isPresent()) {
+            LOGGER.info("Found the address with city={{}}", address.get().getCity());
             return address.get();
         } else {
             LOGGER.info("Cannot find address");

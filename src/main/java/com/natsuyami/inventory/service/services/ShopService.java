@@ -1,13 +1,11 @@
-package com.natsuyami.inventory.service.management;
+package com.natsuyami.inventory.service.services;
 
 import com.natsuyami.inventory.dto.ShopDto;
-import com.natsuyami.inventory.dto.builder.ShopDtoBuilder;
 import com.natsuyami.inventory.model.Address;
 import com.natsuyami.inventory.model.Shop;
 import com.natsuyami.inventory.repository.ShopRepository;
-import com.natsuyami.inventory.service.impl.ManagementImpl;
-import com.natsuyami.inventory.service.impl.OpenImpl;
-import com.natsuyami.inventory.validation.product.ShopValidation;
+import com.natsuyami.inventory.service.impl.DefaultImpl;
+import com.natsuyami.inventory.validation.ShopValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -18,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ShopService implements ManagementImpl<ShopDto>, OpenImpl<ShopDto> {
+public class ShopService implements DefaultImpl<ShopDto> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
 
@@ -27,23 +25,6 @@ public class ShopService implements ManagementImpl<ShopDto>, OpenImpl<ShopDto> {
 
     @Autowired
     private ShopRepository shopRepository;
-
-    @Override
-    public ShopDto create(ShopDto ShopDto) {
-        Shop shop = createShop(ShopDto);
-
-        return ShopDtoBuilder.getInstance().build(shop);
-    }
-
-    @Override
-    public ShopDto update(ShopDto shopDetailsDto) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(long id) {
-        return false;
-    }
 
     @Override
     public List<ShopDto> getAll() {
@@ -60,22 +41,16 @@ public class ShopService implements ManagementImpl<ShopDto>, OpenImpl<ShopDto> {
         return null;
     }
 
-    public Shop createShop(ShopDto shopDto) {
-        ShopValidation.getInstance().validate(shopDto);
-        Address address = addressService.findById(shopDto.getAddressId());
-
-        Shop shop = new Shop();
-        BeanUtils.copyProperties(shopDto, shop);
-        shop.setAddress(address);
-
-        shop = shopRepository.save(shop);
-
-        return shop;
-    }
-
-    public Shop findbyId(long id) {
+    /**
+     * find shop by its id, if no shop found then return null
+     * @param id - id of the shop, type long
+     * @return Shop - shop data
+     */
+    public Shop findById(long id) {
+        LOGGER.info("Initialized ShopService findbyId() method with shopId={{}}", id);
         Optional<Shop> shop = shopRepository.findById(id);
         if (shop.isPresent()) {
+            LOGGER.info("Found the shop with name={{}}", shop.get().getShopName());
             return shop.get();
         } else {
             LOGGER.info("shop cannot be find");
