@@ -8,7 +8,7 @@ public class Encryption {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Encryption.class);
 
-    public static BCryptPasswordEncoder encoder(){
+    public static BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 }

@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private static final String CLIENT_ID = "ni-client";
-    private static final String CLIENT_SECRET = "ni-client-secret"; // try to not encrypt and made request
+    private static final String CLIENT_SECRET = Encryption.encoder().encode("ni-client-secret"); // try to not encrypt and made request
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String AUTHORIZATION_CODE = "authorization_code";
     private static final String REFRESH_TOKEN = "refresh_token";
@@ -30,7 +30,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private static final String TRUST = "trust";
     private static final int ACCESS_TOKEN_VALIDITY_SECONDS = 1*60*60;
     private static final int REFRESH_TOKEN_VALIDITY_SECONDS = 6*60*60;
-    private static final String SIGNING_KEY = "jojo4midabl3";
+    private static final String SIGNING_KEY = "rema0317";
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -91,7 +91,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Bean
     public JwtAccessTokenConverter defaultAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("rema0317");
+        converter.setSigningKey(SIGNING_KEY);
         return converter;
     }
 }
