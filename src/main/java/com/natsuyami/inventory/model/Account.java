@@ -27,6 +27,10 @@ public class Account implements Serializable {
     @Column(name = "email_address",  nullable = false)
     private String emailAddress;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
     @CreationTimestamp
     @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "created")
@@ -67,6 +71,14 @@ public class Account implements Serializable {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Date getCreated() {
