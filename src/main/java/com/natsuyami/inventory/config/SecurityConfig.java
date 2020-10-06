@@ -1,6 +1,5 @@
 package com.natsuyami.inventory.config;
 
-import com.natsuyami.inventory.encryption.Encryption;
 import com.natsuyami.inventory.service.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

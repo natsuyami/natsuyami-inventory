@@ -8,6 +8,7 @@ import com.natsuyami.inventory.repository.ShopRepository;
 import com.natsuyami.inventory.service.impl.ManagementImpl;
 import com.natsuyami.inventory.service.services.AddressService;
 import com.natsuyami.inventory.service.services.ShopService;
+import com.natsuyami.inventory.service.encryption.Encryption;
 import com.natsuyami.inventory.validation.ShopValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Time;
 
 @Service
@@ -28,6 +28,9 @@ public class ShopToolService extends ShopService implements ManagementImpl<ShopD
 
     @Autowired
     private ShopRepository shopRepository;
+
+    @Autowired
+    private Encryption encryption;
 
     /**
      * create one shop
@@ -67,6 +70,7 @@ public class ShopToolService extends ShopService implements ManagementImpl<ShopD
         shop.setOpenHour(Time.valueOf(shopDto.getHourOpening()));
         shop.setClosingHour(Time.valueOf(shopDto.getHourClosing()));
         shop.setAddress(address);
+        shop.setCreatedBy(encryption.jwtConverter());
 
         LOGGER.info("Saving shop shopName={{}}", shop.getShopName());
         shop = shopRepository.save(shop);

@@ -1,12 +1,10 @@
-package com.natsuyami.inventory.service.services;
+package com.natsuyami.inventory.service.services.type;
 
-import com.natsuyami.inventory.dto.AccountDto;
 import com.natsuyami.inventory.dto.RoleDto;
 import com.natsuyami.inventory.dto.builder.RoleDtoBuilder;
 import com.natsuyami.inventory.model.Role;
 import com.natsuyami.inventory.repository.RoleRepository;
 import com.natsuyami.inventory.service.impl.DefaultImpl;
-import com.natsuyami.inventory.service.services.management.RoleToolService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +43,7 @@ public class RoleService implements DefaultImpl<RoleDto>  {
     }
 
     @Override
-    public RoleDto search(String keyword) {
+    public List<RoleDto> search(String keyword) {
         return null;
     }
 

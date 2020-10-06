@@ -35,6 +35,14 @@ public class ShopProduct implements Serializable {
     @JoinColumn(name = "shop_id", nullable = false)
     private Shop shop;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }

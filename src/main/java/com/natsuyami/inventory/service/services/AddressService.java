@@ -31,7 +31,7 @@ public class AddressService implements DefaultImpl<AddressDto> {
     }
 
     @Override
-    public AddressDto search(String keyword) {
+    public List<AddressDto> search(String keyword) {
         return null;
     }
 

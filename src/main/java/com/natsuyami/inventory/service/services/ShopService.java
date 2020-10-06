@@ -37,7 +37,7 @@ public class ShopService implements DefaultImpl<ShopDto> {
     }
 
     @Override
-    public ShopDto search(String keyword) {
+    public List<ShopDto> search(String keyword) {
         return null;
     }
 

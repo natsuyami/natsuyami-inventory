@@ -1,4 +1,4 @@
-package com.natsuyami.inventory.service.services.management;
+package com.natsuyami.inventory.service.services.management.type;
 
 import com.natsuyami.inventory.dto.CategoryDto;
 import com.natsuyami.inventory.dto.builder.CategoryDtoBuilder;

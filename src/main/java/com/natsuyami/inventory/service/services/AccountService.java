@@ -19,7 +19,7 @@ public class AccountService implements DefaultImpl<AccountDto> {
     }
 
     @Override
-    public AccountDto search(String keyword) {
+    public List<AccountDto> search(String keyword) {
         return null;
     }
 }

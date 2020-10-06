@@ -8,6 +8,7 @@ import com.natsuyami.inventory.model.Address;
 import com.natsuyami.inventory.model.Shop;
 import com.natsuyami.inventory.repository.ShopRepository;
 import com.natsuyami.inventory.service.services.AddressService;
+import com.natsuyami.inventory.service.encryption.Encryption;
 import com.natsuyami.inventory.service.services.management.ShopToolService;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Time;
@@ -33,6 +35,12 @@ public class ShopServiceTest {
 
     @MockBean
     private ShopRepository shopRepository;
+
+    @MockBean
+    private MockHttpServletRequest httpServletRequest;
+
+    @MockBean
+    private Encryption encryption;
 
     private ShopDto shopDto;
 
@@ -74,6 +82,7 @@ public class ShopServiceTest {
 
     @Test
     public void successCreateShop() {
+        Mockito.when(encryption.jwtConverter()).thenReturn("createdBy");
         Mockito.when(addressService.findById(Mockito.anyLong())).thenReturn(address);
         Mockito.when(shopRepository.save(Mockito.any())).thenReturn(shop);
 

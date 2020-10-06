@@ -1,4 +1,4 @@
-package com.natsuyami.inventory.service.services.management;
+package com.natsuyami.inventory.service.services.management.product;
 
 import com.natsuyami.inventory.service.ProductToolsAbstract;
 import org.springframework.stereotype.Service;

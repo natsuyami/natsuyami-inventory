@@ -13,5 +13,5 @@ public interface DefaultImpl<R> {
 
     R getById(long id);
 
-    R search(String keyword);
+    List<R> search(String keyword);
 }

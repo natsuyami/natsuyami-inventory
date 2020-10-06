@@ -19,7 +19,7 @@ public class Product implements Serializable {
     @Column(name = "product_id", unique = true, nullable = false)
     private long id;
 
-    @Column(name = "product_name", nullable = false)
+    @Column(name = "product_name", nullable = false, unique = true)
     private String productName;
 
     @Column(name = "brand_name", nullable = false)

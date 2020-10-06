@@ -1,11 +1,11 @@
-package com.natsuyami.inventory.service.services.management;
+package com.natsuyami.inventory.service.services.management.type;
 
 import com.natsuyami.inventory.dto.RoleDto;
 import com.natsuyami.inventory.dto.builder.RoleDtoBuilder;
 import com.natsuyami.inventory.model.Role;
 import com.natsuyami.inventory.repository.RoleRepository;
 import com.natsuyami.inventory.service.impl.ManagementImpl;
-import com.natsuyami.inventory.service.services.RoleService;
+import com.natsuyami.inventory.service.services.type.RoleService;
 import com.natsuyami.inventory.validation.RoleValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

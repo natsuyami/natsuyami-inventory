@@ -4,7 +4,7 @@ import com.natsuyami.inventory.controller.ProductController;
 import com.natsuyami.inventory.dto.CategoryDto;
 import com.natsuyami.inventory.dto.ProductDetailsDto;
 import com.natsuyami.inventory.factory.ProductFactory;
-import com.natsuyami.inventory.service.services.CategoryService;
+import com.natsuyami.inventory.service.services.type.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

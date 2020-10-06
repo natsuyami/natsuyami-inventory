@@ -1,7 +1,7 @@
 package com.natsuyami.inventory.controller.management;
 
 import com.natsuyami.inventory.dto.RoleDto;
-import com.natsuyami.inventory.service.services.management.RoleToolService;
+import com.natsuyami.inventory.service.services.management.type.RoleToolService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

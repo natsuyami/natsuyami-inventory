@@ -6,7 +6,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import com.natsuyami.inventory.dto.CategoryDto;
 import com.natsuyami.inventory.model.ProductCategory;
 import com.natsuyami.inventory.repository.CategoryRepository;
-import com.natsuyami.inventory.service.services.management.CategoryToolService;
+import com.natsuyami.inventory.service.services.management.type.CategoryToolService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

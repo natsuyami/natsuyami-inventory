@@ -2,13 +2,13 @@ package com.natsuyami.inventory.service.services.management;
 
 import com.natsuyami.inventory.dto.AccountDto;
 import com.natsuyami.inventory.dto.builder.AccountDtoBuilder;
-import com.natsuyami.inventory.encryption.Encryption;
 import com.natsuyami.inventory.model.Account;
 import com.natsuyami.inventory.model.Role;
 import com.natsuyami.inventory.repository.AccountRepository;
+import com.natsuyami.inventory.service.encryption.Encryption;
 import com.natsuyami.inventory.service.impl.ManagementImpl;
 import com.natsuyami.inventory.service.services.AccountService;
-import com.natsuyami.inventory.service.services.RoleService;
+import com.natsuyami.inventory.service.services.type.RoleService;
 import com.natsuyami.inventory.validation.AccountValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +23,12 @@ public class AccountToolService extends AccountService implements ManagementImpl
 
     @Autowired
     private RoleService roleService;
+
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private Encryption encryption;
     /**
      * create single account
      * @param accountDto - details of account
@@ -35,7 +38,7 @@ public class AccountToolService extends AccountService implements ManagementImpl
     public AccountDto create(AccountDto accountDto) {
         LOGGER.info("Initialized AccountToolService create() method with param={{}}", accountDto);
         AccountValidation.getInstance().validate(accountDto);
-        accountDto.setPassword(Encryption.encoder().encode(accountDto.getPassword()));
+        accountDto.setPassword(encryption.encoder(accountDto.getPassword()));
         Account account = new Account();
         BeanUtils.copyProperties(accountDto, account);
 

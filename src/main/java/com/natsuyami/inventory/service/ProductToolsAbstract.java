@@ -10,8 +10,9 @@ import com.natsuyami.inventory.model.ShopProduct;
 import com.natsuyami.inventory.repository.ProductRepository;
 import com.natsuyami.inventory.repository.ShopProductRepository;
 import com.natsuyami.inventory.service.impl.ManagementImpl;
-import com.natsuyami.inventory.service.services.CategoryService;
+import com.natsuyami.inventory.service.services.type.CategoryService;
 import com.natsuyami.inventory.service.services.ShopService;
+import com.natsuyami.inventory.service.encryption.Encryption;
 import com.natsuyami.inventory.validation.product.ProductDetailsValidation;
 import com.natsuyami.inventory.validation.product.ProductValidation;
 import org.slf4j.Logger;
@@ -35,6 +36,9 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
     @Autowired
     private ShopProductRepository shopProductRepository;
 
+    @Autowired
+    private Encryption encryption;
+
     /**
      * create one product with/without details
      * @param productDetailsDto - product extended with details (product and shopProduct)
@@ -44,7 +48,12 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
     public ProductDetailsDto create(ProductDetailsDto productDetailsDto) {
         LOGGER.info("Initialized ProductToolsAbstract create() method with param={{}}", productDetailsDto);
         ProductDetailsDto result = new ProductDetailsDto();
-        Product product = createProduct(productDetailsDto);
+        Product product;
+        if (productDetailsDto.getId() < 1) {
+            product = createProduct(productDetailsDto);
+        } else {
+            product = findById(productDetailsDto.getId());
+        }
         BeanUtils.copyProperties(product, result);
 
         // when shop id exist then additional details should also be saved, otherwise skip and save only the product
@@ -81,7 +90,7 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
         Product product = new Product();
         BeanUtils.copyProperties(productDto, product);
         product.setProductCategory(category);
-
+        product.setCreatedBy(encryption.jwtConverter());
         LOGGER.info("Saving product productName={{}}", product.getProductName());
         product = productRepository.save(product);
 

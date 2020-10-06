@@ -1,7 +1,7 @@
 package com.natsuyami.inventory.controller.management;
 
 import com.natsuyami.inventory.dto.CategoryDto;
-import com.natsuyami.inventory.service.services.management.CategoryToolService;
+import com.natsuyami.inventory.service.services.management.type.CategoryToolService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

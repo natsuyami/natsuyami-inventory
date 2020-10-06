@@ -1,4 +1,4 @@
-package com.natsuyami.inventory.service.services;
+package com.natsuyami.inventory.service.services.type;
 
 import com.natsuyami.inventory.dto.CategoryDto;
 import com.natsuyami.inventory.dto.builder.CategoryDtoBuilder;
@@ -34,7 +34,7 @@ public class CategoryService implements DefaultImpl<CategoryDto> {
     }
 
     @Override
-    public CategoryDto search(String keyword) {
+    public List<CategoryDto> search(String keyword) {
         return null;
     }
 
