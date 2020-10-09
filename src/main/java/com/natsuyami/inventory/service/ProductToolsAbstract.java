@@ -91,6 +91,7 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
         BeanUtils.copyProperties(productDto, product);
         product.setProductCategory(category);
         product.setCreatedBy(encryption.jwtConverter());
+
         LOGGER.info("Saving product productName={{}}", product.getProductName());
         product = productRepository.save(product);
 

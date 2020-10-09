@@ -1,5 +1,7 @@
 package com.natsuyami.inventory.model;
 
+import org.springframework.util.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -30,6 +32,6 @@ public class ProductCategory implements Serializable {
     }
 
     public void setCategory(String category) {
-        this.category = category;
+        this.category = StringUtils.capitalize(category);
     }
 }

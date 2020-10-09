@@ -7,6 +7,8 @@ import com.natsuyami.inventory.service.impl.DefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class AddressService implements DefaultImpl<AddressDto> {
     private AddressRepository addressRepository;
 
     @Override
-    public List<AddressDto> getAll() {
+    public Page<AddressDto> getAll(Pageable pageable) {
         return null;
     }
 
@@ -31,7 +33,7 @@ public class AddressService implements DefaultImpl<AddressDto> {
     }
 
     @Override
-    public List<AddressDto> search(String keyword) {
+    public List<AddressDto> search(String search) {
         return null;
     }
 

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "ni_shops")
+@Table(name = "ni_shop")
 public class Shop implements Serializable {
 
     private static final long serialVersionUID = 629430758404133415L;
@@ -69,7 +69,7 @@ public class Shop implements Serializable {
     }
 
     public void setShopName(String shopName) {
-        this.shopName = shopName;
+        this.shopName = shopName.toUpperCase();
     }
 
     public String getShopDescription() {

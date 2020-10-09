@@ -20,6 +20,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private AccountRepository accountRepository;
 
+    /**
+     * used for authentication, check if user logging in exist and get the data in the database. otherwise return error.
+     * @param username - username of the account
+     * @return UserDetails - account data including the username used
+     * @throws UsernameNotFoundException - user does not exist
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findByUsername(username);

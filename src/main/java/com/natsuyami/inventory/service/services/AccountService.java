@@ -2,6 +2,8 @@ package com.natsuyami.inventory.service.services;
 
 import com.natsuyami.inventory.dto.AccountDto;
 import com.natsuyami.inventory.service.impl.DefaultImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 @Service
 public class AccountService implements DefaultImpl<AccountDto> {
     @Override
-    public List<AccountDto> getAll() {
+    public Page<AccountDto> getAll(Pageable pageable) {
         return null;
     }
 
@@ -19,7 +21,7 @@ public class AccountService implements DefaultImpl<AccountDto> {
     }
 
     @Override
-    public List<AccountDto> search(String keyword) {
+    public List<AccountDto> search(String search) {
         return null;
     }
 }

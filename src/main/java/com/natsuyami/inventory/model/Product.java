@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "ni_products")
+@Table(name = "ni_product")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 6032531647133471571L;
@@ -61,7 +61,7 @@ public class Product implements Serializable {
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        this.productName = productName.toUpperCase();
     }
 
     public String getBrandName() {
@@ -69,7 +69,7 @@ public class Product implements Serializable {
     }
 
     public void setBrandName(String brandName) {
-        this.brandName = brandName;
+        this.brandName = brandName.toUpperCase();
     }
 
     public String getProductDescription() {

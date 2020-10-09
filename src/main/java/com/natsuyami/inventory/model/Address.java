@@ -46,7 +46,7 @@ public class Address implements Serializable {
     }
 
     public void setAddressBlock(String addressBlock) {
-        this.addressBlock = addressBlock;
+        this.addressBlock = addressBlock.toUpperCase();
     }
 
     public String getBaranggay() {
@@ -54,7 +54,7 @@ public class Address implements Serializable {
     }
 
     public void setBaranggay(String baranggay) {
-        this.baranggay = baranggay;
+        this.baranggay = baranggay.toUpperCase();
     }
 
     public String getCity() {
@@ -62,7 +62,7 @@ public class Address implements Serializable {
     }
 
     public void setCity(String city) {
-        this.city = city;
+        this.city = city.toUpperCase();
     }
 
     public String getProvince() {
@@ -70,7 +70,7 @@ public class Address implements Serializable {
     }
 
     public void setProvince(String province) {
-        this.province = province;
+        this.province = province.toUpperCase();
     }
 
     public String getRegion() {
@@ -78,7 +78,7 @@ public class Address implements Serializable {
     }
 
     public void setRegion(String region) {
-        this.region = region;
+        this.region = region.toUpperCase();
     }
 
     public Set<Shop> getShop() {

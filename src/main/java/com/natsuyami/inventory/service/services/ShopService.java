@@ -1,15 +1,14 @@
 package com.natsuyami.inventory.service.services;
 
 import com.natsuyami.inventory.dto.ShopDto;
-import com.natsuyami.inventory.model.Address;
 import com.natsuyami.inventory.model.Shop;
 import com.natsuyami.inventory.repository.ShopRepository;
 import com.natsuyami.inventory.service.impl.DefaultImpl;
-import com.natsuyami.inventory.validation.ShopValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class ShopService implements DefaultImpl<ShopDto> {
     private ShopRepository shopRepository;
 
     @Override
-    public List<ShopDto> getAll() {
+    public Page<ShopDto> getAll(Pageable pageable) {
         return null;
     }
 
@@ -37,9 +36,10 @@ public class ShopService implements DefaultImpl<ShopDto> {
     }
 
     @Override
-    public List<ShopDto> search(String keyword) {
+    public List<ShopDto> search(String search) {
         return null;
     }
+
 
     /**
      * find shop by its id, if no shop found then return null

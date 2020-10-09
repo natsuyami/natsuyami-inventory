@@ -46,6 +46,7 @@ public class AddressServiceTest {
         addressDto.setBaranggay("baranggay test");
         addressDto.setCity("city test");
         addressDto.setRegion("region test");
+        addressDto.setProvince("province test");
 
         address = new Address();
         BeanUtils.copyProperties(addressDto, address);
