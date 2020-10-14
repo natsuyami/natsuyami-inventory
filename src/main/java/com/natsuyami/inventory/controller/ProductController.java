@@ -1,13 +1,16 @@
 package com.natsuyami.inventory.controller;
 
+import com.natsuyami.inventory.dto.ProductDetailsDto;
 import com.natsuyami.inventory.dto.ProductDto;
 import com.natsuyami.inventory.factory.ProductFactory;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -22,7 +25,7 @@ public class ProductController {
     @Autowired
     private ProductFactory productService;
 
-    @ApiOperation(value = "get all products",
+    @ApiOperation(value = "get all products or specific category of products",
             notes = "no error format as of now, pageable has different attribute name documented in swagger",
             response = List.class)
     @ApiResponses(value = {
@@ -40,13 +43,16 @@ public class ProductController {
                             "Default sort order is ascending. " +
                             "Multiple sort criteria are supported.")
     })
-    @GetMapping("/{category}")
-    public Object getAll(@PathVariable("category") String category,
+    @GetMapping(value = {"", "/{category}"})
+    public Object getAll(@PathVariable(value = "category", required = false) String category,
                          @ApiIgnore("Ignored because swagger ui shows the wrong params, " +
                                  "instead they are explained in the implicit params")
-                                 Pageable pageable) {
+                         @SortDefault.SortDefaults({
+                                 @SortDefault(sort = "productName", direction = Sort.Direction.ASC),
+                                 @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+                         }) Pageable pageable) {
         LOGGER.info("Initialized ProductController getAll() method for category={{}}, page={{}}. size={{}}", category, pageable.getPageNumber(), pageable.getPageSize());
-        Page<ProductDto> products = productService.getProduct(category).getAll(pageable);
+        List<ProductDetailsDto> products = productService.getProduct(category).getAll(pageable);
         return products;
     }
 
@@ -56,8 +62,9 @@ public class ProductController {
     @ApiResponses(value = {
             @ApiResponse(code = 500, message = "there is an invalid data from database")
     })
-    @GetMapping("/search/{category}")
-    public Object search(@PathVariable("category") String category, @RequestParam("search") String search) {
+    @GetMapping(value = {"/search", "/search/{category}"})
+    public Object search(@PathVariable(value = "category", required = false) String category,
+                         @RequestParam("search") String search) {
         LOGGER.info("Initialized ProductController search() method for category={{}} with search={{}}", category, search);
         List<ProductDto> products = productService.getProduct(category).search(search);
         return products;

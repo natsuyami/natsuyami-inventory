@@ -9,9 +9,9 @@ import java.util.List;
  * implemented to all features
  * @param <R> - return type to be assign to the service that will be implemented
  */
-public interface DefaultImpl<R> {
+public interface DefaultImpl<R, S> {
 
-    Page<R> getAll(Pageable pageable);
+    List<S> getAll(Pageable pageable);
 
     R getById(long id);
 

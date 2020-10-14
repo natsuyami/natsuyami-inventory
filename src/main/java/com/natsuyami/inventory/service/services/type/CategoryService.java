@@ -8,7 +8,6 @@ import com.natsuyami.inventory.service.impl.DefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryService implements DefaultImpl<CategoryDto> {
+public class CategoryService implements DefaultImpl<CategoryDto, CategoryDto> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryService.class);
 
@@ -24,7 +23,7 @@ public class CategoryService implements DefaultImpl<CategoryDto> {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Page<CategoryDto> getAll(Pageable pageable) {
+    public List<CategoryDto> getAll(Pageable pageable) {
         return null;
     }
 
@@ -35,6 +34,7 @@ public class CategoryService implements DefaultImpl<CategoryDto> {
      */
     @Override
     public CategoryDto getById(long id) {
+        LOGGER.info("Initialized CategoryService getById() method id={{}}", id);
         ProductCategory category = getExistingCategory(id);
 
         return CategoryDtoBuilder.getInstance().build(category);
@@ -51,11 +51,14 @@ public class CategoryService implements DefaultImpl<CategoryDto> {
      * @return ProductCategory - category data containing the id
      */
     public ProductCategory getExistingCategory(long id) {
+        LOGGER.info("Initialized CategoryService getExistingCategory() method id={{}}", id);
+
         Optional<ProductCategory> result = categoryRepository.findById(id);
 
         if (result.isPresent()) {
             return result.get();
         } else {
+            LOGGER.info("Search result category does not exist");
             return null;
         }
     }

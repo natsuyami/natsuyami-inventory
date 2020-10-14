@@ -1,8 +1,8 @@
 package com.natsuyami.inventory.service.services.product;
 
-import com.natsuyami.inventory.service.ProductDefaultAbstract;
+import com.natsuyami.inventory.service.ProductService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FoodService extends ProductDefaultAbstract {
+public class FoodService extends ProductService {
 }

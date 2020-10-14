@@ -8,7 +8,6 @@ import com.natsuyami.inventory.service.impl.DefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoleService implements DefaultImpl<RoleDto>  {
+public class RoleService implements DefaultImpl<RoleDto, RoleDto>  {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleService.class);
 
@@ -24,7 +23,7 @@ public class RoleService implements DefaultImpl<RoleDto>  {
     private RoleRepository roleRepository;
 
     @Override
-    public Page<RoleDto> getAll(Pageable pageable) {
+    public List<RoleDto> getAll(Pageable pageable) {
         return null;
     }
 

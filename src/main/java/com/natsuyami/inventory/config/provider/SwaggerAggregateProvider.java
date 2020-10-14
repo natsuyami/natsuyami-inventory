@@ -1,15 +1,16 @@
 package com.natsuyami.inventory.config.provider;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SwaggerAggregateProvider  implements SwaggerResourcesProvider {
+public class SwaggerAggregateProvider implements SwaggerResourcesProvider {
 
-    @Value("${spring.jersey.application-path}")
+    @Value("${server.servlet.context-path}")
     private String basePath;
 
     @Override

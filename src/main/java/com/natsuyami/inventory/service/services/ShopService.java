@@ -7,7 +7,6 @@ import com.natsuyami.inventory.service.impl.DefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ShopService implements DefaultImpl<ShopDto> {
+public class ShopService implements DefaultImpl<ShopDto, ShopDto> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ShopService.class);
 
@@ -26,7 +25,7 @@ public class ShopService implements DefaultImpl<ShopDto> {
     private ShopRepository shopRepository;
 
     @Override
-    public Page<ShopDto> getAll(Pageable pageable) {
+    public List<ShopDto> getAll(Pageable pageable) {
         return null;
     }
 

@@ -24,7 +24,7 @@ public class Account implements Serializable {
     @Column(name = "password",  nullable = false)
     private String password;
 
-    @Column(name = "email_address",  nullable = false)
+    @Column(name = "email_address", unique = true, nullable = false)
     private String emailAddress;
 
     @ManyToOne

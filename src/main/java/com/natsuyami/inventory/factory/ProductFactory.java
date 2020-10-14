@@ -1,7 +1,7 @@
 package com.natsuyami.inventory.factory;
 
-import com.natsuyami.inventory.service.ProductDefaultAbstract;
-import com.natsuyami.inventory.service.ProductToolsAbstract;
+import com.natsuyami.inventory.service.ProductService;
+import com.natsuyami.inventory.service.ProductToolService;
 import com.natsuyami.inventory.service.services.management.product.ChemicalToolService;
 import com.natsuyami.inventory.service.services.product.ChemicalService;
 import com.natsuyami.inventory.service.services.product.FoodService;
@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 public class ProductFactory {
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private FoodService foodService;
 
     @Autowired
@@ -23,6 +26,9 @@ public class ProductFactory {
 
     @Autowired
     private ChemicalService chemicalService;
+
+    @Autowired
+    private ProductToolService productToolService;
 
     @Autowired
     private FoodToolService foodToolService;
@@ -40,9 +46,10 @@ public class ProductFactory {
      * @param productType - category
      * @return ProductDefaultAbstract
      */
-    public ProductDefaultAbstract getProduct(String productType) {
+    public ProductService getProduct(String productType) {
+
         if (StringUtils.isBlank(productType)) {
-            return null;
+            return productService;
         }
 
         if (productType.equalsIgnoreCase("Food")) {
@@ -63,9 +70,10 @@ public class ProductFactory {
      * @param productType - category
      * @return ProductToolsAbstract
      */
-    public ProductToolsAbstract productTools(String productType) {
+    public ProductToolService productTools(String productType) {
+
         if (StringUtils.isBlank(productType)) {
-            return null;
+            return productToolService;
         }
 
         if (productType.equalsIgnoreCase("Food")) {

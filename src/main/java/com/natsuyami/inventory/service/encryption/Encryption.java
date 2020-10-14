@@ -26,7 +26,7 @@ public class Encryption {
     }
 
     public String jwtConverter() {
-        LOGGER.info("Initialized jwtConverter method from Encryption class");
+        LOGGER.info("Initialized jwtConverter method from Encryption class hosted={{}}", httpRequest.getHeader("host"));
         Principal principal = httpRequest.getUserPrincipal();
         LOGGER.info("Decryption of the token produces");
         return principal.getName();

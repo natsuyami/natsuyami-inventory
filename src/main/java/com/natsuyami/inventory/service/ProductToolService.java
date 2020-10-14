@@ -3,7 +3,6 @@ package com.natsuyami.inventory.service;
 import com.natsuyami.inventory.dto.ProductDetailsDto;
 import com.natsuyami.inventory.dto.ProductDto;
 import com.natsuyami.inventory.dto.builder.ProductDetailsDtoBuilder;
-import com.natsuyami.inventory.model.Product;
 import com.natsuyami.inventory.model.ProductCategory;
 import com.natsuyami.inventory.model.Shop;
 import com.natsuyami.inventory.model.ShopProduct;
@@ -19,10 +18,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public abstract class ProductToolsAbstract extends ProductDefaultAbstract implements ManagementImpl<ProductDetailsDto> {
+@Service
+public class ProductToolService extends ProductService implements ManagementImpl<ProductDetailsDto> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductToolsAbstract.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductToolService.class);
 
     @Autowired
     private ShopService shopService;
@@ -40,7 +41,7 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
     private Encryption encryption;
 
     /**
-     * create one product with/without details
+     * create one product with/without details and shop.
      * @param productDetailsDto - product extended with details (product and shopProduct)
      * @return ProductDetailsDto - product with/wthout details created.
      */
@@ -48,7 +49,7 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
     public ProductDetailsDto create(ProductDetailsDto productDetailsDto) {
         LOGGER.info("Initialized ProductToolsAbstract create() method with param={{}}", productDetailsDto);
         ProductDetailsDto result = new ProductDetailsDto();
-        Product product;
+        com.natsuyami.inventory.model.Product product;
         if (productDetailsDto.getId() < 1) {
             product = createProduct(productDetailsDto);
         } else {
@@ -82,12 +83,12 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
      * @param productDto - product data
      * @return Product - data of saved product
      */
-    public Product createProduct(ProductDto productDto) {
+    public com.natsuyami.inventory.model.Product createProduct(ProductDto productDto) {
         LOGGER.info("Initialized ProductToolsAbstract createProduct() method with param={{}}", productDto);
         ProductValidation.getInstance().validate(productDto); // initial validation of product data without any api calls
         ProductCategory category = categoryService.getExistingCategory(productDto.getCategoryId());
 
-        Product product = new Product();
+        com.natsuyami.inventory.model.Product product = new com.natsuyami.inventory.model.Product();
         BeanUtils.copyProperties(productDto, product);
         product.setProductCategory(category);
         product.setCreatedBy(encryption.jwtConverter());
@@ -103,7 +104,7 @@ public abstract class ProductToolsAbstract extends ProductDefaultAbstract implem
      * @param productDetailsDto - product data with additional info
      * @return ProductDetailsDto - data of saved product with details
      */
-    private ProductDetailsDto createProductDetails(ProductDetailsDto productDetailsDto, Product product) {
+    private ProductDetailsDto createProductDetails(ProductDetailsDto productDetailsDto, com.natsuyami.inventory.model.Product product) {
         LOGGER.info("Initialized ProductToolsAbstract createProductDetails() method with param={{}} and productId={{}}", productDetailsDto, product.getId());
         ProductDetailsValidation.getInstance().validate(productDetailsDto); // initial validation of additional details without any api calls
         ShopProduct shopProduct = new ShopProduct();

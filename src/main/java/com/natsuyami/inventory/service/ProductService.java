@@ -2,12 +2,17 @@ package com.natsuyami.inventory.service;
 
 import com.natsuyami.inventory.dto.ProductDetailsDto;
 import com.natsuyami.inventory.dto.ProductDto;
+import com.natsuyami.inventory.dto.builder.ProductDetailsDtoBuilder;
 import com.natsuyami.inventory.dto.builder.ProductDtoBuilder;
 import com.natsuyami.inventory.model.Product;
+import com.natsuyami.inventory.model.Shop;
+import com.natsuyami.inventory.model.ShopProduct;
 import com.natsuyami.inventory.repository.ProductRepository;
 import com.natsuyami.inventory.repository.ShopProductRepository;
 import com.natsuyami.inventory.repository.specification.ProductSpecificationBuilder;
 import com.natsuyami.inventory.service.impl.DefaultImpl;
+import com.natsuyami.inventory.service.services.ShopService;
+import com.natsuyami.inventory.service.services.type.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +28,16 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class ProductDefaultAbstract implements DefaultImpl<ProductDto> {
+@Service
+public class ProductService implements DefaultImpl<ProductDto, ProductDetailsDto> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductDefaultAbstract.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private ProductRepository productRepository;
@@ -37,18 +50,24 @@ public abstract class ProductDefaultAbstract implements DefaultImpl<ProductDto> 
      * @return List - products
      */
     @Override
-    public Page<ProductDto> getAll(Pageable pageable) {
+    public List<ProductDetailsDto> getAll(Pageable pageable) {
         LOGGER.info("Initialized ProductDefaultAbstract getAll() method");
 
-        List<ProductDto> productList = new ArrayList<>();
+        List<ProductDetailsDto> productList = new ArrayList<>();
 
         Page<Product> products = productRepository.findAll(pageable);
+
         for (Product product : products) {
-            productList.add(ProductDtoBuilder.getInstance().build(product));
+            product.setProductCategory(categoryService.getExistingCategory(product.getProductCategory().getId()));
+            List<ShopProduct> shopProductList = shopProductRepository.findByProduct(product);
+
+            for (ShopProduct shopProduct : shopProductList) {
+                shopProduct.setShop(shopService.findById(shopProduct.getShop().getId()));
+                productList.add(ProductDetailsDtoBuilder.getInstance().build(shopProduct, product));
+            }
         }
 
-        Page<ProductDto> result = new PageImpl<ProductDto>(productList);
-        return result;
+        return productList;
     }
 
     @Override
@@ -108,7 +127,7 @@ public abstract class ProductDefaultAbstract implements DefaultImpl<ProductDto> 
         Matcher matcher = pattern.matcher(search + ",");
 
         while (matcher.find()) {
-            specsBuilder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+            specsBuilder.with(matcher.group(1), matcher.group(2), matcher.group(3).toUpperCase());
         }
 
         Specification<Product> specsProduct = specsBuilder.build();

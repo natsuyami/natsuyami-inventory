@@ -12,6 +12,10 @@ public class ProductDetailsDto extends ProductDto implements Serializable {
 
     private long shopId;
 
+    private String shopName;
+
+    private String category;
+
     private BigDecimal quantity;
 
     private String unit;
@@ -26,6 +30,22 @@ public class ProductDetailsDto extends ProductDto implements Serializable {
 
     public void setShopId(long shopId) {
         this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public BigDecimal getQuantity() {
@@ -66,6 +86,10 @@ public class ProductDetailsDto extends ProductDto implements Serializable {
         builder.append(super.toString().replace("}", ", "));
         builder.append("\"shopId\" : ");
         builder.append("\"" + shopId + "\", ");
+        builder.append("\"shopName\" : ");
+        builder.append("\"" + shopName + "\", ");
+        builder.append("\"category\" : ");
+        builder.append("\"" + category + "\", ");
         builder.append("\"quantity\" : ");
         builder.append("\"" + quantity + "\", ");
         builder.append("\"unit\" : ");
