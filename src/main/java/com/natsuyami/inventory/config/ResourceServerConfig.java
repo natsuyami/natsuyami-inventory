@@ -24,8 +24,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.headers().frameOptions().disable().and()
-                    .authorizeRequests().antMatchers("/").permitAll().and()
-                    .authorizeRequests().antMatchers("/**/*swagger*/**").permitAll().and()
+                    .authorizeRequests().antMatchers("/*swagger*/**").permitAll().and()
                     .authorizeRequests().antMatchers("/actuator/**").permitAll().and()
                     .authorizeRequests().antMatchers("/management/**").authenticated();
     }

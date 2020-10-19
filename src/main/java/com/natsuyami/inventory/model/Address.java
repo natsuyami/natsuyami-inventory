@@ -18,7 +18,7 @@ public class Address implements Serializable {
     @Column(name = "address_block", nullable = false)
     private String addressBlock;
 
-    @Column(name = "baranggay", unique = true, nullable = false)
+    @Column(name = "baranggay", nullable = false)
     private String baranggay;
 
     @Column(name = "city", nullable = false)
