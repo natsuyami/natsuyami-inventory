@@ -1,12 +1,10 @@
 package com.natsuyami.inventory.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 
 /**
  * The @EnableResourceServer annotation adds a filter of type OAuth2AuthenticationProcessingFilter automatically
@@ -25,13 +23,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable()
-                .anonymous()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"**").permitAll()
-                .antMatchers("/management/**").authenticated();
-        ;
+        httpSecurity.headers().frameOptions().disable().and()
+                    .authorizeRequests().antMatchers("/*swagger*/**").permitAll().and()
+                    .authorizeRequests().antMatchers("/actuator/**").permitAll().and()
+                    .authorizeRequests().antMatchers("/management/**").authenticated();
     }
 }
